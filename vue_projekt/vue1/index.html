@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{hello}}</h1>
+            <p>Greetings: <b> {{ hello }} </b></p>
+            <p :title="tooltip">Move mouse over me!</p>
+            <p :class="myStyle">Text</p>
+            <p :class="myStyle1">Text</p>
+            <p :class="myStyle2">Text</p>
+            <p :class="[color, fontWeight]">Text</p>
+            <p :style="styleObject">Styled Text</p>
+            <p>{{ hello.split('').reverse().join('') }}</p>
+            <span v-html="myHeader"></span>
+            <p>{{ myHeader }}</p>
+            <p v-once>{{ hello }}</p>
+            <!--<p>{{ reverseHello1() }}</p>-->
+            <p>{{ reverseHello }}</p>
+            <p>{{ capitalizeHello() }}</p>
+            <p>{{ add(14, 15)}} </p>
+            <p v-if="showHelloWorld">Hello World</p>
+            <template v-if="showHelloWorld">
+                <h1>Hello World</h1>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis in, eum quae rerum qui aut veniam saepe alias non veritatis reiciendis iste tempora repellendus sequi, esse hic, odio cumque nulla!</p>
+            </template>
+            
+            <p v-show="showHelloWorld">Hello World</p>
+            <p v-if="a > 0">pozitív</p>
+            <p v-else-if="a < 0">pozitív</p>
+            <p v-else="a = 0">nulla</p>
+            <ul>
+                <li v-for="fruit in fruits">{{ fruit }}</li>
+                <li v-for="(fruit, index) in fruits">{{ index + 1 }}. {{ fruit }}</li>
+            </ul>
+            <ul>
+                <li v-for="value in person">{{ value }}</li>
+                <li v-for="(value, key) in person">{{ key }}: {{ value }}</li>
+            </ul>
+            <ul>
+                <li v-for="n in 10">{{ n }}</li>
+            </ul>
+            <!--<ul>
+                <span v-for="todo in todos">
+                    <li v-if="todo.done">{{ todo.text }}</li>
+                </span>
+            </ul>-->
+
+            <button v-on:click = "counter += 1">Hozzáad 1 (egy)</button>
+            <button @click = "addOne">Hozzáad 1</button>
+            <p>{{ counter }}</p>
+
+            <button @click = "addMore(5)">Hozzáad 5</button>
+            <button @click = "addMore(15)">Hozzáad 15</button>
+            <p>{{ counter }}</p>
+
+            <a @click.prevent = "addOne" href="https://szbi-pg.hu">Don't click on me</a>
+            <p>Clicked anyway: {{counter}}</p>
+
+            <input @keyup.enter = "addMore(30)" @keyup.space = "addMore(50)" type="text" placeholder="Enter vagy space">
+
+            <p @mouseover="performMouseOver()" @mouseOut="performMouseOut()">Kurzor helye:</p>
+            <p>Státusz: {{ mouseEventStatus }}</p>
+
+            <ul>
+                <li v-for="n in 15" @click = "addMore(n)">Hozzáad {{ n }}</li>
+            </ul>
+            <p>Összeg: {{ counter }}</p>
+
+            <input type="text" v-model="inputText">
+            <p>{{ inputText }}</p>
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="app.js"></script>
+    </body>
+
+      
+</html>

@@ -1,0 +1,15 @@
+.redText {
+    color: rgb(51, 1, 63);
+}
+
+.greenText {
+    color: rgb(7, 119, 7);
+}
+
+.blueText {
+    color: rgb(190, 23, 168);
+}
+
+.boldText {
+    font-weight: bold;
+}
