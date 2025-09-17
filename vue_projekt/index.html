@@ -6,6 +6,30 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="app">
+        <!--<button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>-->
+
+
+        <component-a></component-a>
+        <component-b></component-b>
+        <component-c></component-c>
+
+
+        <hello-user :name="defaultName"></hello-user>
+
+
+        <!--<button-counter :counter="szamlal" @add-some="addSome"></button-counter>-->
+        <button-counter></button-counter>
+
+
+        <custom-input v-model="inputText"></custom-input>
+        <p>Szöveg: {{ inputText }}</p>
+
+        <hello-user>csirke</hello-user>
+
+    </div>
     
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="app.js"></script>
