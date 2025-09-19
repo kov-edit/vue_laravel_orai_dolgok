@@ -1,0 +1,55 @@
+Laravelhez kell:
+Parancssorba:
+php -v
+node -v
+npm -v
+composer -v
+git -v
+
+
+Mappa (érdemes githubon repoba mert ott csak azokat tárolja (?), githubra tükrözéskor kevesebb fájl van) -> terminál
+composer create-project --prefer-dist laravel/laravel projektNev
+
+Vagy
+
+composer global require laravel/installer (ezt telepítsük ha sokat használjuk) ezután csak annyi kell hogy: laravel new projektNev
+
+
+ampps - phpmyadmin: adatbázis létrehozása
+
+A projekt mappában:
+.env fájl:
+	adatbázis beállítások
+	DB_CONNECTION=sqlite => DB_CONNECTION=mysql
+	kommentből kivenni, átírni: DB_HOST, DB_PORT, DB_DATABASE=laravel_s1, DB_USERNAME, DB_PASSWORD=mysql
+
+terminal vscode-ban:
+	php artisan migrate - táblákat hoz létre az adatbázisba
+
+	php artisan serve - alap nyitóoldal (resources/views/welcome.blade.php jelenik meg)
+
+
+Tudnivalók a részeiről:
+app mappa:
+	fejlesztés lényegi része
+	http -> controllers - kiszolgálja a végpontot
+	
+database mappa:
+	migrations - a táblák itt lesznek
+
+public mappa:
+	statikus adatok, képek stb tárolása
+
+resources mappa:
+	blade (frontend) mappái
+
+routes mappa:
+	végpontok tárolása, beérkező kérések
+
+test mappa:
+	tesztesetek végzése, tárolása
+
+
+
+
+

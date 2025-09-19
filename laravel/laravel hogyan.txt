@@ -1,0 +1,21 @@
+Teszt projekt:
+
+resources/views - új fájl: teszt.blade.php
+html (!-el), bootstrap
+
+routes/web.php - Route::get('/teszt', function () {
+    return view('teszt');
+});
+
+url-be a port név után /teszt
+
+
+
+app/http/controllers - új fájl: tesztcontroller.php  (függvényeket írunk a views-hoz)
+
+routes/web.php - a fenti helyett: Route::get('/teszt', [TesztController::class, 'teszt']); | felülre pedig: use App\Http\Controllers\tesztcontroller;
+	a class neve nálam TesztController és a fájl neve tesztcontroller
+
+resources/views - 3 új mappa: includes, layouts, pages
+includes - új fájlok: head.blade.php (hmtl nyitótag - body nyitótag), nav.blade.php (nav), foot.blade.php (script és zárótagek)
+layouts - új fájl: app.blade.php (@includes)
