@@ -1,0 +1,9 @@
+.tab-text {
+    font-weight: bold;
+    color: darkmagenta;
+}
+
+.tab-text.active {
+    font-weight: bold;
+    color: chocolate;
+}

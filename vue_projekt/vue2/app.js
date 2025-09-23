@@ -110,7 +110,7 @@ Vue.component('custom-input', {
 
 Vue.component('hello-user', {
     props: ['name'],
-    template: `<div>Sziaaaa <slot></slot></div>`
+    template: `<div>Sziaaaa <slot></slot></div>`  //slot - ha a html-be van oda írva akkor az marad - nem attribútomként lesz a név, hanem tag-ként tudjuk használni a komponenst a slot segítségével
 })
 
 
