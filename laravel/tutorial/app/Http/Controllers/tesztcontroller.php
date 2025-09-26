@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\Name;
 
 class TesztController
 {
@@ -13,7 +14,19 @@ class TesztController
 
     public function names()
     {
-        $names = ['Emerencia', 'Radiátor', 'Adorján', 'Dzsesszika', 'Kolos', 'Ágoston'];
+        /*$names = ['Emerencia', 'Radiátor', 'Adorján', 'Dzsesszika', 'Kolos', 'Ágoston'];
+        return view('pages.names', compact('names'));*/
+
+        $names = Name::all();
+
         return view('pages.names', compact('names'));
+    }
+
+    public function namesCreate($name)
+    {
+        $nameRecord = new Name();
+        $nameRecord->name = $name;  //a nyilakkal adjuk meg hogy mit akarunk
+        $nameRecord->save();
+        return $nameRecord->id;
     }
 }
