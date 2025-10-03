@@ -5,13 +5,13 @@
     {{-- itt lesz a tartalom --}}
     <div class="container">
         <!--<ul>
-                        @foreach ($names as $name)
-                            <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
-                                @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
-                                {{ $name }}
-                            </li>
-                        @endforeach
-                    </ul> -->
+                            @foreach ($names as $name)
+                                <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
+                                    @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
+                                    {{ $name }}
+                                </li>
+                            @endforeach
+                        </ul> -->
 
         <table class="table table-striped table-hover"> {{-- boostrap táblázathoz tartozó osztályai --}}
             <thead>
@@ -25,6 +25,13 @@
                 @foreach($names as $name)
                     <tr>
                         <td>{{ $name->id }}</td>
+
+                        @empty($name->family)
+                            <td><strong>Nincs adat</strong></td>
+                        @else
+                            <td>{{ $name->family->surname }}</td>
+                        @endempty
+
                         <td>{{ $name->name }}</td>
                         <td>{{ $name->created_at }}</td>
                     </tr>
