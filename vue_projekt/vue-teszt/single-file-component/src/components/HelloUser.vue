@@ -1,7 +1,8 @@
-<template>
-    <div>
-        <p>Hello {{ name }}</p>
-    </div>
+<template lang="pug">
+    div
+        p Hello {{ name }}
+        h1 This is a greeting from pug itself 😎🎉
+        p This is a bekezdés
 </template>
 
 <script>
@@ -12,8 +13,9 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+    @color: darkorchid;
     p {
-        color: darkorchid;
+        color: @color;
     }
 </style>

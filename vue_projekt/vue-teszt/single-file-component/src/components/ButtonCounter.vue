@@ -8,15 +8,15 @@
     }
 </script>
 
-<template>
-    <div>
-        <button @click="counter+=5">Hozzáad 5</button>
-        <p>Mennyi: {{ counter }}</p>
-    </div>
+<template lang="pug">
+    div
+        button(@click="counter+=5") Hozzáad 5
+        p Mennyi: {{ counter }}
 </template>
 
-<style scoped>
+<style lang="less" scoped>
+    @color: maroon;
     p {
-        color: maroon;
+        color: @color;
     }
 </style>
