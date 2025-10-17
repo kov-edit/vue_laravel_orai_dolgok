@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\Name;
 use App\Models\Family;
+use Illuminate\Http\Request;
 
 class TesztController
 {
@@ -40,7 +41,42 @@ class TesztController
         return $familyRecord->id;
     }
 
-    /*$names = \DB::table('names')->
+    public function namesDelete(Request $request)
+    {
+        $name = Name::find($request->input('id'));
+        $name->delete();
+        return "ok";
+    }
+
+
+
+    /* Hasznos funkciók
+    function saveData(Request $request)   //hivatkozunk a kapott kérésekre - Response-al választ is tudunk adni
+    {
+
+    }
+
+    function returnObject()
+    {
+        $obj = new \stdClass();
+        $obj->name = 'Neve';
+        $obj->server = 'SZBI-PG';
+        return response()->json($obj);
+    }
+
+    function returnError()
+    {
+        return response()
+            ->view('error', ['valtozo' => 'válttozó értéke'], 404); //404-es hibakódot adja vissza
+    }
+
+    function redirectAway()
+    {
+        return redirect()->away('https://google.com');  //átirányít másik oldalra
+    }*/
+
+    /* Lekérés példák
+    $names = \DB::table('names')->
         ->where('name', '<>', 'Béla')
         ->whereAnd('id', '>', 1)
         ->orderBy('name','ASC')

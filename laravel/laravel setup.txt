@@ -6,6 +6,7 @@ npm -v
 composer -v
 git -v
 
+GITRŐL LESZEDVE NEM JÖN .ENV FÁJL, ÚJRA KELL CSINÁLNI A BEÁLLÍTÁSAIT
 
 Mappa (érdemes githubon repoba mert ott csak azokat tárolja (?), githubra tükrözéskor kevesebb fájl van) -> terminál
 composer create-project --prefer-dist laravel/laravel projektNev

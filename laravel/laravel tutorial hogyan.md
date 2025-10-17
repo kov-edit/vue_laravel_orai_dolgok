@@ -10,7 +10,7 @@ html (!-el), bootstrap
 
 routes/web.php - Route::get('/teszt', function () {
 
-&nbsp;   return view('teszt');
+    return view('teszt');
 
 });
 
@@ -30,7 +30,7 @@ app/http/controllers - új fájl: tesztcontroller.php  (függvényeket írunk a 
 
 routes/web.php - a fenti helyett: Route::get('/teszt', \[TesztController::class, 'teszt']); | felülre pedig: use App\\Http\\Controllers\\tesztcontroller;
 
-&nbsp;	a class neve nálam TesztController és a fájl neve tesztcontroller
+ 	a class neve nálam TesztController és a fájl neve tesztcontroller
 
 
 
@@ -54,17 +54,17 @@ php artisan után ami megnyílik oldal az alap nyitó, fentre /teszt és belemeg
 
 *php artisan make:migration create\_names\_table* -> új tábla létrehozása (database/migrations-be létrejön aznapi dátummal)
 
-&nbsp;	a fájlon belül lehet módosítani, hogy régebbi verziókat is visza tudjunk állítani
+ 	a fájlon belül lehet módosítani, hogy régebbi verziókat is visza tudjunk állítani
 
-&nbsp;	
+ 
 
-&nbsp;	$table->string('mezonev', 100)->nullable()  //új mező ami 0 értéket is felvehet, 100 karakter hosszú lehet
+ 	$table->string('mezonev', 100)->nullable()  //új mező ami 0 értéket is felvehet, 100 karakter hosszú lehet
 
-&nbsp;	$table->string('mezonev')->default('alapérték')  //alap érték felvétele
+ 	$table->string('mezonev')->default('alapérték')  //alap érték felvétele
 
 
 
-&nbsp;	változtatás után php artisan migrate
+ 	változtatás után php artisan migrate
 
 
 
@@ -84,29 +84,29 @@ fentre /names/create/Béla - fel lehet venni nevet
 
 tesztController.php - use App\\Models\\Name;   //ez után tudjuk használi a függvényt, mert importálja
 
-&nbsp;	függvény megírása után fentre csak /names, és kihozza a tábla rekordjait
+ 	függvény megírása után fentre csak /names, és kihozza a tábla rekordjait
 
 
 
-&nbsp;	$names = Name::find(i); //i. elemet adja vissza
+ 	$names = Name::find(i); //i. elemet adja vissza
 
 
 
-&nbsp;	$names = Name::where('name', 'Kolos')->first();  //megadom hogy mit keresek, és az elsőt adja vissza (elhagyható), get-el az összes elemet adja vissza tömbben
+ 	$names = Name::where('name', 'Kolos')->first();  //megadom hogy mit keresek, és az elsőt adja vissza (elhagyható), get-el az összes elemet adja vissza tömbben
 
 
 
-&nbsp;	$names = Name::where('id', '>', 2)->get();  //2-nél nagyobb id-ú elem tömbjét adja vissza
+ 	$names = Name::where('id', '>', 2)->get();  //2-nél nagyobb id-ú elem tömbjét adja vissza
 
 
 
-&nbsp;	$names = Name::where('name', '<>', 'Béla')  //nem egyenlő
+ 	$names = Name::where('name', '<>', 'Béla')  //nem egyenlő
 
-&nbsp;           ->whereAnd('id', '>', 1)  //id nagyobb mint 1
+            ->whereAnd('id', '>', 1)  //id nagyobb mint 1
 
-&nbsp;           ->orderBy('id', 'desc')  //csökkenő sorrend
+            ->orderBy('id', 'desc')  //csökkenő sorrend
 
-&nbsp;           - get();  //tömbben adja vissza
+            - get();  //tömbben adja vissza
 
 
 
@@ -159,4 +159,14 @@ majd új kontroller a famyily táblának is
 names.blade.php-ban: @empty feltételt írtunk
 
 
+
+##### **Új név felvétele jobb módszerrel**
+
+foot.blade.php-ba egy jquery link és egy yield ami scriptre mutat
+
+names.blade.php-ba új td törlés gomb ÉS új section-ba script, ami a foot.blade yield-je
+
+tesztController.php-ba új function hogy töröljön is
+
+web.php-ba új route:Route::post('/names/delete', \[TesztController::class, 'namesDelete']);
 
