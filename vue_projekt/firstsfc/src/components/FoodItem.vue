@@ -17,7 +17,7 @@ export default {
         'foodDesc',
         'isFavorite'
     ]*/
-    props: {
+    /*props: {
         foodName: {
             type: String,
             required: true
@@ -49,15 +49,29 @@ export default {
         toggleFavorite() {
             this.foodIsFavorite = !this.foodIsFavorite
         }
-   }
+   }*/
+    props: ['foodName', 'foodDesc', 'isFavorite'],
+    emits: ['toggle-favorite'],  //nem kötelező de segíti átlátni
+    data() {
+        return {
+            foodIsFavorite: this.isFavorite
+        }
+    },
+    methods: {
+        toggleFavorite() {
+            //this.foodIsFavorite = !this.foodIsFavorite
+            this.$emit('toggle-favorite', this.foodName)
+        }
+    }
 }
 </script>
 
 <template>
-    <div @click="adjHozza()">
+    <!--@click="adjHozza()"-->
+    <div >
         <h2>
             {{ foodName }}
-            <img src="../img_quality.svg" v-show="foodIsFavorite">
+            <img src="../img_quality.svg" v-show="isFavorite"> <!-- emit nélkül foodIsFAvorite a v-show-hoz (amikor erről az oldlaról működik)-->
         </h2>
         <p>{{ foodDesc }}</p>
         <button @click="toggleFavorite">Magic gomb</button>
