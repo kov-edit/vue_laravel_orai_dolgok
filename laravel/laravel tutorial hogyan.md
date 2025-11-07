@@ -68,7 +68,7 @@ php artisan után ami megnyílik oldal az alap nyitó, fentre /teszt és belemeg
 
 
 
-##### **ÚJ név felvétele oldalról**
+##### **Új név felvétele oldalról**
 
 
 
@@ -160,7 +160,7 @@ names.blade.php-ban: @empty feltételt írtunk
 
 
 
-##### **Új név felvétele jobb módszerrel**
+##### **Új név felvétele jobb módszerrel és törlése**
 
 foot.blade.php-ba egy jquery link és egy yield ami scriptre mutat
 
@@ -168,5 +168,37 @@ names.blade.php-ba új td törlés gomb ÉS új section-ba script, ami a foot.bl
 
 tesztController.php-ba új function hogy töröljön is
 
-web.php-ba új route:Route::post('/names/delete', \[TesztController::class, 'namesDelete']);
+web.php-ba új route: Route::post('/names/delete', \[TesztController::class, 'namesDelete']);
+
+
+
+##### **Családnév táblázat**
+
+nav.blade.php-ban új menüpont -> utána surname.blade.php létrehozása - names.blade nagy részét átvisszük, párat módosítunk
+
+web.php-ban két új route: Route::get('/names/manage/surname', \[TesztController::class, 'manageSurname']);
+
+Route::post('/names/manage/surname/delete', \[TesztController::class, 'deleteSurname']);
+
+tesztController.php-ban új függvények: manageSurname és deletSurname
+
+
+
+##### **Űrlap minden adathoz**
+
+Családnév felvétele: surname.blade.php-ban új form a táblázat alá: <form action="/names/manage/surname/new" method="POST">
+
+web.php új route: Route::post('/names/manage/surname/new', \[TesztController::class, 'newSurname']);
+
+teszController-be új function: newSurname
+
+
+
+Keresztnvé felvétele: names.blade.php-ba is űrlap: <form action="/names/manage/name/new" method="POST">
+
+A form-group-ba a vezetéknév legördülő lista, foreach-el az adatbázisból - ehhez a tesztController-ben a names függvényhez új sor: $families = Family::all(); , és a compact-hoz is 'name' után vesszővel 'families'
+
+web.php új route: Route::post('/names/manage/name/new', \[TesztController::class, 'newName']);
+
+tesztController-be új függvény: newName 
 

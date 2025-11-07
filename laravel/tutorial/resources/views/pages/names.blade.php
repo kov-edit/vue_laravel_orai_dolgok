@@ -5,13 +5,13 @@
     {{-- itt lesz a tartalom --}}
     <div class="container">
         <!--<ul>
-                                                                                @foreach ($names as $name)
-                                                                                    <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
-                                                                                        @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
-                                                                                        {{ $name }}
-                                                                                    </li>
-                                                                                @endforeach
-                                                                            </ul> -->
+                                                                                                            @foreach ($names as $name)
+                                                                                                                <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
+                                                                                                                    @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
+                                                                                                                    {{ $name }}
+                                                                                                                </li>
+                                                                                                            @endforeach
+                                                                                                        </ul> -->
 
         <table class="table table-striped table-hover"> {{-- boostrap táblázathoz tartozó osztályai --}}
             <thead>
@@ -43,6 +43,23 @@
                 @endforeach
             </tbody>
         </table>
+        <h3 class="mt-3">Új nev hozzáadása</h3>
+        <form action="/names/manage/name/new" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="inputFamily">Vezetéknév</label>
+                <select name="inputFamily" id="inputFamily" class="form-control">
+                    @foreach($families as $family) {{-- familes táblából kap adatokat --}}
+                        <option value="{{ $family->id }}">{{ $family->surname }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputName">Keresztnév</label>
+                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Ide a keresztnevet">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Hozzáadás</button>
+        </form>
     </div>
 @endsection
 

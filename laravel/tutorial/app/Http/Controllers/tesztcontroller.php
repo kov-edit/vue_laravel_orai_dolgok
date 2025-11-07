@@ -20,8 +20,9 @@ class TesztController
         return view('pages.names', compact('names'));*/
 
         $names = Name::all();
+        $families = Family::all();
 
-        return view('pages.names', compact('names'));
+        return view('pages.names', compact('names', 'families'));
     }
 
     public function namesCreate($family, $name)
@@ -48,7 +49,35 @@ class TesztController
         return "ok";
     }
 
+    public function manageSurname()
+    {
+        $names = Family::all();
+        return view('pages.surname', compact('names'));
+    }
 
+    public function deleteSurname(Request $request)
+    {
+        $family = Family::find($request->input('id'));
+        $family->delete();
+        return "ok";
+    }
+
+    public function newSurname(Request $request)
+    {
+        $family = new Family();
+        $family->surname = $request->input('inputFamily');
+        $family->save();
+        return redirect('/names/manage/surname');
+    }
+
+    public function newName(Request $request)
+    {
+        $name = new Name();
+        $name->family_id = $request->input('inputFamily');
+        $name->name = $request->input('inputName');
+        $name->save();
+        return redirect('/names');
+    }
 
     /* Hasznos funkciók
     function saveData(Request $request)   //hivatkozunk a kapott kérésekre - Response-al választ is tudunk adni
