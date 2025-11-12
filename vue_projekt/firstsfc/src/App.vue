@@ -1,5 +1,5 @@
 <script>
-export default {
+/*export default {
   data() {
     return {
       message: 'Köszönet az oldalon',
@@ -47,16 +47,16 @@ export default {
       this.newItem = '';
     }
   }
-}
+}*/
 </script>
 
 <template>
   <h1>{{ message}}</h1>
 
-  <h1>Gyümölcsök</h1>
+  <!--<h1>Gyümölcsök</h1>
   <button @click="removeItem">Törlés</button>
   <div id="wrapper">
-    <!--<food-item 
+    <!-<food-item 
       food-name="Barack"
       :is-favorite="true"/>
     <food-item 
@@ -65,7 +65,7 @@ export default {
     <food-item 
       food-name="Narancs"
       food-desc="Ez egy citrom és lorem ipsum dolor sit amet consectetur adipisicing elit."
-      :is-favorite="false"/>-->
+      :is-favorite="false"/>->
       <food-item 
       v-for="x in foods"
       :key="x"
@@ -90,25 +90,54 @@ export default {
 
   <slot-comp>
     a SZÖVEG
-  </slot-comp>
+  </slot-comp>-->
 
-  <h3>Vue slotok</h3>
+  <!--<h3>Vue slotok</h3>
   <div id="wrapper">
-    <slot-comp v-for="x in foods" :key="x">
+    <slot-comp v-slot:bottomSlot v-for="x in foods" :key="x">
       <img :src="x.url">
       <h4>{{ x.name }}</h4>
       <p>{{ x.desc }}</p>
     </slot-comp>
     <footer>
-      <slot-comp>
+      <slot-comp v-slot:default>
         <h4>Footer</h4>
       </slot-comp>
     </footer>
-  </div>
+  </div>-->
+
+  <slot-comp v-slot="food">
+    <hr>
+    <p>{{ food.staticText }}</p>
+    <h2>{{ food.foodName }} <img :src="food.foodUrl"> </h2>
+    <p class="greenP">{{ food.foodDesc }}</p>
+  </slot-comp>
 </template>
 
 <style>
-#wrapper {
+#app {
+  width: 300px;
+}
+
+h2 {
+  background-color: rgb(50, 129, 70);
+  padding: 10px;
+  margin: 0;
+}
+
+.greenP {
+  background-color: rgb(103, 172, 112);
+  margin-top: 0;
+  padding: 10px 15px;
+}
+
+img {
+  float: right;
+  height: 70px;
+  margin-left: 10px;
+}
+
+/*#wrapper {
   display: flex;
   flex-wrap: wrap;
 }
@@ -126,5 +155,5 @@ export default {
   cursor: pointer;
   background-color: rgb(250, 193, 160);
   border-color: rgb(73, 1, 1);
-}
+}*/
 </style>

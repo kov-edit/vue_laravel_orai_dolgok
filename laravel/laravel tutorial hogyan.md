@@ -200,5 +200,5 @@ A form-group-ba a vezetéknév legördülő lista, foreach-el az adatbázisból 
 
 web.php új route: Route::post('/names/manage/name/new', \[TesztController::class, 'newName']);
 
-tesztController-be új függvény: newName 
+tesztController-be új függvény: newName
 
