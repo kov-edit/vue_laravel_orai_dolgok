@@ -202,3 +202,74 @@ web.php új route: Route::post('/names/manage/name/new', \[TesztController::clas
 
 tesztController-be új függvény: newName
 
+
+
+##### **Nevek validációja**
+
+tesztController.php newSurname funkció kiegészítése:
+
+$validateData = $request->validate(\[
+
+&nbsp;           'inputFamily' => 'required|alpha|min:2|max:20',
+
+
+
+&nbsp;       ]);
+
+
+
+surname.blade.php-ban hibaüzenet megjelnítése (egy if-es error message)
+
+Hogy ne tűntesse el a form>input-ba: value="{{ old('inputFamily') }}"
+
+Validáció az input-ba közvetlen: minlength="2" maxlength="20" required
+
+
+
+tesztController newName-be:
+
+$validateData = $request->validate(\[
+
+&nbsp;           'inputFamily' => 'required|integer|exists:App\\Models\\Family,id',
+
+&nbsp;           'inputName' => 'required|alpha|min:2|max:20',
+
+&nbsp;       ]);
+
+
+
+###### **Hibaüzenet küldése:**
+
+tesztController deleteSurname-be:
+try {
+
+&nbsp;           $family = Family::find($request->input('id'));
+
+&nbsp;           $family->delete();
+
+&nbsp;           return response()->json(\['success' => true]);
+
+&nbsp;       } catch (Exception $e) {
+
+&nbsp;           return response()->json(\['success' => false, 'message' => $e->getMessage()]);
+
+&nbsp;       }
+
+
+
+surname.blade script-be a success-hez: 
+
+if (data.success == true) {
+
+&nbsp;                       thisBtn.closest('tr').fadeOut();
+
+&nbsp;                   } else {
+
+&nbsp;                       alert('Nem sikerült a törlés\\nRészletek: ' + data.message);
+
+&nbsp;                   }
+
+
+
+
+

@@ -5,13 +5,13 @@
     {{-- itt lesz a tartalom --}}
     <div class="container">
         <!--<ul>
-                                            @foreach ($names as $name)
-                                            <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
-                                            @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
-                                                {{ $name }}
-                                            </li>
-                                            @endforeach
-                                        </ul> -->
+                                                                @foreach ($names as $name)
+                                                                <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
+                                                                @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
+                                                                    {{ $name }}
+                                                                </li>
+                                                                @endforeach
+                                                            </ul> -->
 
         <table class="table table-striped table-hover"> {{-- boostrap táblázathoz tartozó osztályai --}}
             <thead>
@@ -37,11 +37,23 @@
         </table>
 
         <h3 class="mt-3">Új családnév hozzáadása</h3>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="/names/manage/surname/new" method="POST">
             @csrf
             <div class="form-group">
                 <label for="inputFamily">Családnév</label>
-                <input type="text" class="form-control" id="inputFamily" name="inputFamily" placeholder="Ide a családnevet">
+                <input type="text" class="form-control" id="inputFamily" name="inputFamily" placeholder="Ide a családnevet"
+                    value="{{ old('inputFamily') }}" minlength="2" maxlength="20" required>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Hozzáadás</button>
         </form>
@@ -62,8 +74,12 @@
                     _token: '{{ csrf_token() }}',  //webes eszköz, bejelenkezett felhasználók nevében lehet valamit csinálni, minden oldaltöltéskor generál, véd a támadásoktól
                     id: id
                 },
-                success: function () {
-                    thisBtn.closest('tr').fadeOut();
+                success: function (data) {
+                    if (data.success == true) {
+                        thisBtn.closest('tr').fadeOut();
+                    } else {
+                        alert('Nem sikerült a törlés\nRészletek: ' + data.message);
+                    }
                 },
                 error: function () {
                     alert('Nem sikerült a törlés');

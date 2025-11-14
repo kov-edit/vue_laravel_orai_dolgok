@@ -2,7 +2,10 @@
 namespace App\Http\Controllers;
 use App\Models\Name;
 use App\Models\Family;
+use GuzzleHttp\Psr7\Query;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Exception;
 
 class TesztController
 {
@@ -57,13 +60,24 @@ class TesztController
 
     public function deleteSurname(Request $request)
     {
-        $family = Family::find($request->input('id'));
-        $family->delete();
-        return "ok";
+        try {
+            $family = Family::find($request->input('id'));
+            $family->delete();
+            return response()->json(['success' => true]);
+        } catch (QueryException $e) {
+            return response()->json(['success' => false, 'message' => 'A családnév nem törölhető, mert vannak hozzákapcsolódó nevek']);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Ismeretlen hiba']);
+        }
+
     }
 
     public function newSurname(Request $request)
     {
+        $validateData = $request->validate([
+            'inputFamily' => 'required|alpha|min:2|max:20', //kötelező, abc betűi, min 2 karakter, max 20
+
+        ]);
         $family = new Family();
         $family->surname = $request->input('inputFamily');
         $family->save();
@@ -72,6 +86,10 @@ class TesztController
 
     public function newName(Request $request)
     {
+        $validateData = $request->validate([
+            'inputFamily' => 'required|integer|exists:App\Models\Family,id', //exists: egy tábla mezőit kapja, hogy van e
+            'inputName' => 'required|alpha|min:2|max:20',
+        ]);
         $name = new Name();
         $name->family_id = $request->input('inputFamily');
         $name->name = $request->input('inputName');

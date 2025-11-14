@@ -5,13 +5,13 @@
     {{-- itt lesz a tartalom --}}
     <div class="container">
         <!--<ul>
-                                                                                                            @foreach ($names as $name)
-                                                                                                                <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
-                                                                                                                    @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
-                                                                                                                    {{ $name }}
-                                                                                                                </li>
-                                                                                                            @endforeach
-                                                                                                        </ul> -->
+                                                                                                                @foreach ($names as $name)
+                                                                                                                    <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
+                                                                                                                        @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
+                                                                                                                        {{ $name }}
+                                                                                                                    </li>
+                                                                                                                @endforeach
+                                                                                                            </ul> -->
 
         <table class="table table-striped table-hover"> {{-- boostrap táblázathoz tartozó osztályai --}}
             <thead>
@@ -44,6 +44,17 @@
             </tbody>
         </table>
         <h3 class="mt-3">Új nev hozzáadása</h3>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="/names/manage/name/new" method="POST">
             @csrf
             <div class="form-group">
