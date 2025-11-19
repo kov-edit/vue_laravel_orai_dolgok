@@ -1,4 +1,6 @@
 <script>
+import { def } from '@vue/shared';
+
 /*export default {
   data() {
     return {
@@ -48,12 +50,26 @@
     }
   }
 }*/
+
+export default {
+  data() {
+    return {
+      toggleValue: true
+    }
+  },
+  computed: {
+    activeComp() {
+      return this.toggleValue ? 'comp-one' : 'comp-two'
+    }
+  }
+}
+
 </script>
 
 <template>
-  <h1>{{ message}}</h1>
+  <!--<h1>{{ message}}</h1>
 
-  <!--<h1>Gyümölcsök</h1>
+  <h1>Gyümölcsök</h1>
   <button @click="removeItem">Törlés</button>
   <div id="wrapper">
     <!-<food-item 
@@ -106,16 +122,32 @@
     </footer>
   </div>-->
 
-  <slot-comp v-slot="food">
+  <!--<slot-comp v-slot="food">
     <hr>
     <p>{{ food.staticText }}</p>
     <h2>{{ food.foodName }} <img :src="food.foodUrl"> </h2>
     <p class="greenP">{{ food.foodDesc }}</p>
-  </slot-comp>
+  </slot-comp>-->
+
+  <h1>Dinamikus komponens</h1>
+
+  <p>Magic fog történni ha rányomsz a gombra</p>
+  <button @click="toggleValue = !toggleValue">
+    Magic ✨
+  </button>
+
+      <!-- vagy exlude (nem jegyzi meg), max = mennyit jegyez meg-->
+  <KeepAlive include="CompOne" max="2"> 
+    <component :is="activeComp"/>
+  </KeepAlive>
+
+  <comp-three></comp-three>
+
+
 </template>
 
 <style>
-#app {
+/*#app {
   width: 300px;
 }
 
@@ -135,7 +167,7 @@ img {
   float: right;
   height: 70px;
   margin-left: 10px;
-}
+}*/
 
 /*#wrapper {
   display: flex;
