@@ -210,11 +210,11 @@ tesztController.php newSurname funkció kiegészítése:
 
 $validateData = $request->validate(\[
 
-&nbsp;           'inputFamily' => 'required|alpha|min:2|max:20',
+            'inputFamily' => 'required|alpha|min:2|max:20',
 
 
 
-&nbsp;       ]);
+        ]);
 
 
 
@@ -230,11 +230,11 @@ tesztController newName-be:
 
 $validateData = $request->validate(\[
 
-&nbsp;           'inputFamily' => 'required|integer|exists:App\\Models\\Family,id',
+            'inputFamily' => 'required|integer|exists:App\\Models\\Family,id',
 
-&nbsp;           'inputName' => 'required|alpha|min:2|max:20',
+            'inputName' => 'required|alpha|min:2|max:20',
 
-&nbsp;       ]);
+        ]);
 
 
 
@@ -243,33 +243,84 @@ $validateData = $request->validate(\[
 tesztController deleteSurname-be:
 try {
 
-&nbsp;           $family = Family::find($request->input('id'));
+            $family = Family::find($request->input('id'));
 
-&nbsp;           $family->delete();
+            $family->delete();
 
-&nbsp;           return response()->json(\['success' => true]);
+            return response()->json(\['success' => true]);
 
-&nbsp;       } catch (Exception $e) {
+        } catch (Exception $e) {
 
-&nbsp;           return response()->json(\['success' => false, 'message' => $e->getMessage()]);
+            return response()->json(\['success' => false, 'message' => $e->getMessage()]);
 
-&nbsp;       }
+        }
 
 
 
-surname.blade script-be a success-hez: 
+surname.blade script-be a success-hez:
 
 if (data.success == true) {
 
-&nbsp;                       thisBtn.closest('tr').fadeOut();
+                        thisBtn.closest('tr').fadeOut();
 
-&nbsp;                   } else {
+                    } else {
 
-&nbsp;                       alert('Nem sikerült a törlés\\nRészletek: ' + data.message);
+                        alert('Nem sikerült a törlés\\nRészletek: ' + data.message);
 
-&nbsp;                   }
-
-
+                    }
 
 
+
+##### **Autentikáció**
+
+Terminálba: 
+composer require laravel/ui
+
+php artisan ui vue --auth
+
+-> szerver indítása, felül login/register gombok
+
+Regisztráció után a users táblába felvette az adatot
+
+
+
+nav.blade.php-ba, hogy autentikáljuk és ne dobja ki a bejelenetkezett felhasználót:
+
+@auth
+
+&nbsp;               <li class="nav-item">
+
+&nbsp;                   <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Kijelentkezés</a>>
+
+&nbsp;		    <form action="/logout" id="form-logout" method="post">@csrf</form>
+
+&nbsp;               </li>
+
++Két nav-item bejelentkezéshez és regisztrációhoz, végén @endauth
+
+
+
+names.blade.php-ban amihez nem fér hozzá @auth és @endauth közé tesszük
+
+
+
+web.php-ban amit nem akarunk hogy bárki elérjen hozzárakunk egy ->middleware('auth')
+
+
+
+Új oldal: profil.blade.php
+
+web.php-ban új route, functionnal: Route::get('/profil', function () {return view('pages.profil');})->middleware('auth');
+
+nav.blade.php-ban a 'Profil' menü a nav-ban @auth-os
+
+
+
+##### **Jelszócsere**
+
+profil.blade.php-ba beleírtuk a form-ot
+
+Új fájl: UserController.php
+
+web.php-ban ezt is felvenni route-nak, és felülre is hozzáadni
 

@@ -5,22 +5,24 @@
     {{-- itt lesz a tartalom --}}
     <div class="container">
         <!--<ul>
-                                                                                                                @foreach ($names as $name)
-                                                                                                                    <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
-                                                                                                                        @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
-                                                                                                                        {{ $name }}
-                                                                                                                    </li>
-                                                                                                                @endforeach
-                                                                                                            </ul> -->
+                                                                                                                            @foreach ($names as $name)
+                                                                                                                                <li @if ($name == 'Adorján') style="font-weight: bold; color: blue; text-decoration: underline;" @endif>
+                                                                                                                                    @if ($loop->last) Utolsó: @endif {{-- loop: indexek, elemek kérhetőek vele --}}
+                                                                                                                                    {{ $name }}
+                                                                                                                                </li>
+                                                                                                                            @endforeach
+                                                                                                                        </ul> -->
 
         <table class="table table-striped table-hover"> {{-- boostrap táblázathoz tartozó osztályai --}}
             <thead>
                 <tr>
                     <th>Azonosító</th>
-                    <th>Vezetéknév</th>
+                    <th>Családnév</th>
                     <th>Keresztnév</th>
                     <th>Létrehozás</th>
-                    <th>Műveletek</th>
+                    @auth
+                        <th>Műveletek</th>
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -36,41 +38,47 @@
 
                         <td>{{ $name->name }}</td>
                         <td>{{ $name->created_at }}</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-danger btn-delete-name" data-id="{{ $name->id }}">Törlés</a>
-                        </td>
+                        @auth
+                            <td>
+                                <a href="#" class="btn btn-sm btn-danger btn-delete-name" data-id="{{ $name->id }}">Törlés</a>
+                            </td>
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <h3 class="mt-3">Új nev hozzáadása</h3>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @auth
+            <h3 class="mt-3">Új nev hozzáadása</h3>
 
-        <form action="/names/manage/name/new" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="inputFamily">Vezetéknév</label>
-                <select name="inputFamily" id="inputFamily" class="form-control">
-                    @foreach($families as $family) {{-- familes táblából kap adatokat --}}
-                        <option value="{{ $family->id }}">{{ $family->surname }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="inputName">Keresztnév</label>
-                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Ide a keresztnevet">
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">Hozzáadás</button>
-        </form>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="/names/manage/name/new" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="inputFamily">Vezetéknév</label>
+                    <select name="inputFamily" id="inputFamily" class="form-control">
+                        @foreach($families as $family) {{-- familes táblából kap adatokat --}}
+                            <option value="{{ $family->id }}">{{ $family->surname }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputName">Keresztnév</label>
+                    <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Ide a keresztnevet">
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Hozzáadás</button>
+            </form>
+        @endauth
+
     </div>
 @endsection
 
