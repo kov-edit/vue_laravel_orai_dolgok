@@ -1,5 +1,6 @@
 <script>
 import { def } from '@vue/shared';
+import axios from 'axios';
 
 /*export default {
   data() {
@@ -51,7 +52,7 @@ import { def } from '@vue/shared';
   }
 }*/
 
-export default {
+/*export default {
   data() {
     return {
       toggleValue: true
@@ -62,6 +63,20 @@ export default {
       return this.toggleValue ? 'comp-one' : 'comp-two'
     }
   }
+}*/
+
+export default {
+  data() {
+    return {
+      nameday: null
+    }
+  },
+  methods: {
+    async fetchData() {
+      this.nameday = await axios.get('https://nameday.abalin.net/api/V2/today/budapest');
+    }
+  }
+
 }
 
 </script>
@@ -129,20 +144,38 @@ export default {
     <p class="greenP">{{ food.foodDesc }}</p>
   </slot-comp>-->
 
-  <h1>Dinamikus komponens</h1>
+  <!--<h1>Dinamikus komponens</h1>
 
   <p>Magic fog történni ha rányomsz a gombra</p>
   <button @click="toggleValue = !toggleValue">
     Magic ✨
   </button>
 
-      <!-- vagy exlude (nem jegyzi meg), max = mennyit jegyez meg-->
+       <-vagy exlude (nem jegyzi meg), max = mennyit jegyez meg->
   <KeepAlive include="CompOne" max="2"> 
     <component :is="activeComp"/>
   </KeepAlive>
 
-  <comp-three></comp-three>
+  <comp-three></comp-three>-->
 
+  <!--<div>
+    <button @click="fetchData">Fetch data</button>
+    <p v-if="adat"> {{ adat }}</p>
+  </div>
+  
+  <p>Véletlen állat gomb:</p>
+  <button @click="fetchData">Magic 🪄✨</button>
+  <div v-if="randomMammal">
+    <h2>{{ randomMammal.name }}</h2>
+    <p>Max súly: {{ randomMammal.maxWeight }} kg</p>
+  </div>-->
+
+  <h1>Névnap</h1>
+  <button @click="fetchData">Magic 🪄✨</button>
+  <div v-if="nameday">
+    <p>{{ nameday.data.message }}</p>
+    <p>Boldog születésnapot {{ nameday.data.data.hu }}!</p>
+  </div>
 
 </template>
 
