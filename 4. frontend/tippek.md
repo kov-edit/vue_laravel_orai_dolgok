@@ -132,7 +132,7 @@ export default {
 
        return {
 
-           ingatlanok: \\\[]
+           ingatlanok: \\\\\\\[]
 
        }
 
@@ -160,19 +160,19 @@ export default {
 
 
 
-**Newad.vue** létrheozás, routeba felvétel, bootstrap mappából template másolása:
+\*\*Newad.vue\*\* létrheozás, routeba felvétel, bootstrap mappából template másolása:
 
 import Newad from './pages/Newad.vue'
 
-&nbsp;   {
+\&nbsp;   {
 
-&nbsp;       path: '/newad',
+\&nbsp;       path: '/newad',
 
-&nbsp;       name: 'Newad',
+\&nbsp;       name: 'Newad',
 
-&nbsp;       component: Newad
+\&nbsp;       component: Newad
 
-&nbsp;   }
+\&nbsp;   }
 
 
 
@@ -183,95 +183,95 @@ A Newad.vue-ban select átírása erre:
 
 
 
-**script:**
+\*\*script:\*\*
 
 import axios from 'axios';
 
 export default {
 
-&nbsp;   name: "Newad",
+\&nbsp;   name: "Newad",
 
-&nbsp;   data() {
+\&nbsp;   data() {
 
-&nbsp;       return {
+\&nbsp;       return {
 
-&nbsp;           kategoriak: \[],
+\&nbsp;           kategoriak: \\\[],
 
-&nbsp;           ujIngatlanUrlap: {
+\&nbsp;           ujIngatlanUrlap: {
 
-&nbsp;               kategoriaId: 0,
+\&nbsp;               kategoriaId: 0,
 
-&nbsp;               hirdetesDatuma: new Date().toISOString().substring(0, 10), //aktuális dátum és idő, substring = első 10 karakter: év, elválasztó, hónap, elválasztó, nap
+\&nbsp;               hirdetesDatuma: new Date().toISOString().substring(0, 10), //aktuális dátum és idő, substring = első 10 karakter: év, elválasztó, hónap, elválasztó, nap
 
-&nbsp;               leiras: '',
+\&nbsp;               leiras: '',
 
-&nbsp;               tehermentes: false,
+\&nbsp;               tehermentes: false,
 
-&nbsp;               kepUrl: ''
+\&nbsp;               kepUrl: ''
 
-&nbsp;           },
+\&nbsp;           },
 
-&nbsp;           hibaUzenet: ""
+\&nbsp;           hibaUzenet: ""
 
-&nbsp;       }
+\&nbsp;       }
 
-&nbsp;   },
+\&nbsp;   },
 
-&nbsp;   mounted() {
+\&nbsp;   mounted() {
 
-&nbsp;       axios.get('/kategoria')
+\&nbsp;       axios.get('/kategoria')
 
-&nbsp;           .then(res => {
+\&nbsp;           .then(res => {
 
-&nbsp;               this.kategoriak = res.data;
+\&nbsp;               this.kategoriak = res.data;
 
-&nbsp;           })
+\&nbsp;           })
 
-&nbsp;           .catch(err => {
+\&nbsp;           .catch(err => {
 
-&nbsp;               console.log(err);
+\&nbsp;               console.log(err);
 
-&nbsp;           });
+\&nbsp;           });
 
-&nbsp;   },
+\&nbsp;   },
 
-&nbsp;   methods: {
+\&nbsp;   methods: {
 
-&nbsp;       mentes() {
+\&nbsp;       mentes() {
 
-&nbsp;           axios.post('/ujingatlan', this.ujIngatlanUrlap) //fenti objektumot postoljuk
+\&nbsp;           axios.post('/ujingatlan', this.ujIngatlanUrlap) //fenti objektumot postoljuk
 
-&nbsp;               .then(() => {
+\&nbsp;               .then(() => {
 
-&nbsp;                   this.$router.push('/offers');
+\&nbsp;                   this.$router.push('/offers');
 
-&nbsp;               })
+\&nbsp;               })
 
-&nbsp;               .catch(err => {
+\&nbsp;               .catch(err => {
 
-&nbsp;                   this.hibaUzenet = err + " ";
+\&nbsp;                   this.hibaUzenet = err + " ";
 
-&nbsp;               });
+\&nbsp;               });
 
-&nbsp;       }
+\&nbsp;       }
 
-&nbsp;   }
+\&nbsp;   }
 
 }
 
 
 
-**option**okben törlés, helyette:
+\*\*option\*\*okben törlés, helyette:
 
-&nbsp;                       <option value="0">Kérem válasszon</option>
+\&nbsp;                       <option value="0">Kérem válasszon</option>
 
-&nbsp;                       <option 
+\&nbsp;                       <option 
 
-&nbsp;                       v-for="kategoria in kategoriak"
+\&nbsp;                       v-for="kategoria in kategoriak"
 
-&nbsp;                       :key="kategoria.id"
+\&nbsp;                       :key="kategoria.id"
 
-&nbsp;                       :value="kategoria.id">{{ kategoria.megnevezes }}</option>
+\&nbsp;                       :value="kategoria.id">{{ kategoria.megnevezes }}</option>
 
 
 
@@ -282,5 +282,6 @@ Küldés gombhoz: @click="mentes"
 ALerthez: v-if="hibaUzenet.length > 0" és <strong>{{ hibaUzenet}}</strong>
 
 
+**A végén törlés**: nodemodules mappa törlés, zip-be tömrítés
 
 
