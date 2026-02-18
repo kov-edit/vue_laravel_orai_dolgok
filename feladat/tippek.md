@@ -163,16 +163,11 @@ export default {
 \*\*Newad.vue\*\* létrheozás, routeba felvétel, bootstrap mappából template másolása:
 
 import Newad from './pages/Newad.vue'
-
-\&nbsp;   {
-
-\&nbsp;       path: '/newad',
-
-\&nbsp;       name: 'Newad',
-
-\&nbsp;       component: Newad
-
-\&nbsp;   }
+   {
+       path: '/newad',
+       name: 'Newad',
+       component: Newad
+   }
 
 
 
@@ -188,90 +183,51 @@ A Newad.vue-ban select átírása erre:
 import axios from 'axios';
 
 export default {
-
-\&nbsp;   name: "Newad",
-
-\&nbsp;   data() {
-
-\&nbsp;       return {
-
-\&nbsp;           kategoriak: \\\[],
-
-\&nbsp;           ujIngatlanUrlap: {
-
-\&nbsp;               kategoriaId: 0,
-
-\&nbsp;               hirdetesDatuma: new Date().toISOString().substring(0, 10), //aktuális dátum és idő, substring = első 10 karakter: év, elválasztó, hónap, elválasztó, nap
-
-\&nbsp;               leiras: '',
-
-\&nbsp;               tehermentes: false,
-
-\&nbsp;               kepUrl: ''
-
-\&nbsp;           },
-
-\&nbsp;           hibaUzenet: ""
-
-\&nbsp;       }
-
-\&nbsp;   },
-
-\&nbsp;   mounted() {
-
-\&nbsp;       axios.get('/kategoria')
-
-\&nbsp;           .then(res => {
-
-\&nbsp;               this.kategoriak = res.data;
-
-\&nbsp;           })
-
-\&nbsp;           .catch(err => {
-
-\&nbsp;               console.log(err);
-
-\&nbsp;           });
-
-\&nbsp;   },
-
-\&nbsp;   methods: {
-
-\&nbsp;       mentes() {
-
-\&nbsp;           axios.post('/ujingatlan', this.ujIngatlanUrlap) //fenti objektumot postoljuk
-
-\&nbsp;               .then(() => {
-
-\&nbsp;                   this.$router.push('/offers');
-
-\&nbsp;               })
-
-\&nbsp;               .catch(err => {
-
-\&nbsp;                   this.hibaUzenet = err + " ";
-
-\&nbsp;               });
-
-\&nbsp;       }
-
-\&nbsp;   }
+   name: "Newad",
+   data() {
+       return {
+           kategoriak: \\\[],
+           ujIngatlanUrlap: {
+               kategoriaId: 0,
+               hirdetesDatuma: new Date().toISOString().substring(0, 10), //aktuális dátum és idő, substring = első 10 karakter: év, elválasztó, hónap, elválasztó, nap
+               leiras: '',
+               tehermentes: false,
+               kepUrl: ''
+           },
+           hibaUzenet: ""
+       }
+   },
+   mounted() {
+       axios.get('/kategoria')
+           .then(res => {
+               this.kategoriak = res.data;
+           })
+           .catch(err => {
+               console.log(err);
+           });
+   },
+   methods: {
+       mentes() {
+           axios.post('/ujingatlan', this.ujIngatlanUrlap) //fenti objektumot postoljuk
+               .then(() => {
+                   this.$router.push('/offers');
+               })
+               .catch(err => {
+                   this.hibaUzenet = err + " ";
+               });
+       }
+   }
 
 }
 
 
 
 \*\*option\*\*okben törlés, helyette:
-
-\&nbsp;                       <option value="0">Kérem válasszon</option>
-
-\&nbsp;                       <option 
-
-\&nbsp;                       v-for="kategoria in kategoriak"
-
-\&nbsp;                       :key="kategoria.id"
-
-\&nbsp;                       :value="kategoria.id">{{ kategoria.megnevezes }}</option>
+<option value="0">Kérem válasszon</option>
+<option 
+v-for="kategoria in kategoriak"
+:key="kategoria.id"
+:value="kategoria.id">{{ kategoria.megnevezes }}</option>
 
 
 
