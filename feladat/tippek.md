@@ -172,49 +172,81 @@ import Newad from './pages/Newad.vue'
 Home.vue-ba hozzáadni a newad-ot a routerlinkbe
 
 A Newad.vue-ban select átírása erre:
-<select class="form-select" v-model="ujIngatlanUrlap.kategoriaId">
+select class="form-select" v-model="ujIngatlanUrlap.kategoriaId"
 
-
-
-**script:**
-
+**script**:
 import axios from 'axios';
 
 export default {
+
    name: "Newad",
+   
    data() {
+   
        return {
+       
            kategoriak: \\\[],
+           
            ujIngatlanUrlap: {
+           
                kategoriaId: 0,
+               
                hirdetesDatuma: new Date().toISOString().substring(0, 10), //aktuális dátum és idő, substring = első 10 karakter: év, elválasztó, hónap, elválasztó, nap
+               
                leiras: '',
+               
                tehermentes: false,
+               
                kepUrl: ''
+               
            },
+           
            hibaUzenet: ""
+           
        }
+       
    },
+   
    mounted() {
+   
        axios.get('/kategoria')
+       
            .then(res => {
+           
                this.kategoriak = res.data;
+               
            })
+           
            .catch(err => {
+           
                console.log(err);
+               
            });
+           
    },
+   
    methods: {
+   
        mentes() {
+       
            axios.post('/ujingatlan', this.ujIngatlanUrlap) //fenti objektumot postoljuk
+           
                .then(() => {
+               
                    this.$router.push('/offers');
+                   
                })
+               
                .catch(err => {
+               
                    this.hibaUzenet = err + " ";
+                   
                });
+               
        }
+       
    }
+
 
 }
 
