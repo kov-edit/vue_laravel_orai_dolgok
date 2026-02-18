@@ -114,8 +114,6 @@ import Offers from './pages/Offers.vue'
 
 **Offers.vue** a pages-be:
 
-<script>
-
 import axios from 'axios';
 
 
@@ -160,7 +158,7 @@ export default {
 
 
 
-\*\*Newad.vue\*\* létrheozás, routeba felvétel, bootstrap mappából template másolása:
+**Newad.vue** létrheozás, routeba felvétel, bootstrap mappából template másolása:
 
 import Newad from './pages/Newad.vue'
    {
@@ -178,7 +176,7 @@ A Newad.vue-ban select átírása erre:
 
 
 
-\*\*script:\*\*
+**script:**
 
 import axios from 'axios';
 
@@ -222,7 +220,7 @@ export default {
 
 
 
-\*\*option\*\*okben törlés, helyette:
+**option**okben törlés, helyette:
 <option value="0">Kérem válasszon</option>
 <option 
 v-for="kategoria in kategoriak"
